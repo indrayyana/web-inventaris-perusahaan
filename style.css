@@ -49,6 +49,10 @@ li a:hover {
   background-color: tomato;
 }
 
+.active {
+  background-color: red;
+}
+
 table {
   border-collapse: collapse;
   width: 99%;

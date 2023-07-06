@@ -10,12 +10,14 @@
   <body>
     <header>
       <h1>Inventaris Barang Perusahaan</h1>
-      <ul>
-        <li><a href="index.html">Home</a></li>
+      <ul id="navbar">
+        <li><a href="index.html" class="menu active">Home</a></li>
         <li>
-          <a href="./maintenance/maintenance.html">Maintenance Inventaris</a>
+          <a href="./maintenance/maintenance.html" class="menu">
+            Maintenance Inventaris</a
+          >
         </li>
-        <li><a href="staff/staff.html">Staff</a></li>
+        <li><a href="staff/staff.html" class="menu">Staff</a></li>
       </ul>
     </header>
 
@@ -49,6 +51,18 @@
 
         <tbody id="data">
           <script>
+            // Untuk menu yg sedang active
+            const btnContainer = document.getElementById("navbar");
+            const btns = btnContainer.getElementsByClassName("menu");
+
+            for (let i = 0; i < btns.length; i++) {
+              btns[i].addEventListener("click", function () {
+                let current = document.getElementsByClassName("active");
+                current[0].className = current[0].className.replace(" active");
+                this.className += " active";
+              });
+            }
+
             const url = "http://localhost/web/UAS/web_service.php";
 
             // Function untuk menampilkan semua data barang saat halaman pertama kali dimuat

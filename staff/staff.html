@@ -10,12 +10,14 @@
   <body>
     <header>
       <h1>Staff Perusahaan</h1>
-      <ul>
-        <li><a href="../index.html">Home</a></li>
+      <ul id="navbar">
+        <li><a href="../index.html" class="menu">Home</a></li>
         <li>
-          <a href="../maintenance/maintenance.html">Maintenance Inventaris</a>
+          <a href="../maintenance/maintenance.html" class="menu"
+            >Maintenance Inventaris</a
+          >
         </li>
-        <li><a href="staff.html">Staff</a></li>
+        <li><a href="staff.html" class="menu active">Staff</a></li>
       </ul>
     </header>
 
@@ -47,6 +49,18 @@
 
         <tbody id="data">
           <script>
+            // Untuk menu yg sedang active
+            const btnContainer = document.getElementById("navbar");
+            const btns = btnContainer.getElementsByClassName("menu");
+
+            for (let i = 0; i < btns.length; i++) {
+              btns[i].addEventListener("click", function () {
+                let current = document.getElementsByClassName("active");
+                current[0].className = current[0].className.replace(" active");
+                this.className += " active";
+              });
+            }
+
             const url = "http://localhost/web/UAS/staff/tampil_staff.php";
 
             // Function untuk menampilkan semua data barang saat halaman pertama kali dimuat
