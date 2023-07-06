@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventaris Barang</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>Inventaris Barang Perusahaan</h1>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li>
+          <a href="./maintenance/maintenance.html">Maintenance Inventaris</a>
+        </li>
+        <li><a href="staff/staff.html">Staff</a></li>
+      </ul>
+    </header>
+
+    <div class="container">
+      <a href="input_inventaris.php" class="button maintnc">Tambah Barang +</a>
+      <form action="web_service.php" method="get" id="search">
+        <input
+          type="text"
+          name="keyword"
+          id="searchInput"
+          placeholder="Ketik sesuatu disini... (kecuali harga)"
+          autocomplete="off"
+        />
+        <button class="searchbtn">Cari</button>
+      </form>
+
+      <table class="table" width="100%">
+        <thead>
+          <tr>
+            <td>No</td>
+            <td>Nama Barang</td>
+            <td>Jumlah Barang</td>
+            <td>Kode Barang</td>
+            <td>Kategori</td>
+            <td>Tipe</td>
+            <td>Harga Beli</td>
+            <td>Tahun Beli</td>
+            <td>Pengaturan</td>
+          </tr>
+        </thead>
+
+        <tbody id="data">
+          <script>
+            const url = "http://localhost/web/UAS/web_service.php";
+
+            // Function untuk menampilkan semua data barang saat halaman pertama kali dimuat
+            function showAllData() {
+              fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                  tabelData(data);
+                });
+            }
+
+            showAllData();
+
+            // Menambahkan event listener untuk submit pada id "search".
+            document
+              .getElementById("search")
+              .addEventListener("submit", searchSubmit); // Memanggil fungsi searchSubmit saat submit terjadi
+
+            function searchSubmit(event) {
+              event.preventDefault(); // Mencegah aksi memuat ulang halaman & default pengiriman form (pindah page)
+
+              // Mengambil nilai yang diinputkan pada elemen dengan ID "searchInput"
+              const keyword = document.getElementById("searchInput").value;
+
+              fetch(url + `?keyword=${encodeURIComponent(keyword)}`)
+                .then((response) => response.json())
+                .then((data) => {
+                  tabelData(data);
+                });
+            }
+
+            // Function untuk menampilkan tabel data barang
+            function tabelData(data) {
+              let dom = document.getElementById("data");
+              let row = "";
+              let no = 1;
+
+              for (let i of data) {
+                row += `<tr>
+                    <td>${no++}</td>
+                    <td>${i.nama}</td>
+                    <td>${i.jumlah}</td>
+                    <td>${i.kode}</td>
+                    <td>${i.kategori}</td>
+                    <td>${i.tipe}</td>
+                    <td>Rp${new Intl.NumberFormat("id-ID").format(i.harga_beli)}
+                    </td>
+                    <td>${i.tahun_beli}</td>
+                    <td><a href="edit_barang.php?id=${i.id}" 
+                            class="button">Edit</a>
+                        <a onclick="return confirm('Apakah anda yakin akan menghapus data ini?')" 
+                            href="hapus_barang.php?id=${i.id}" 
+                            class="button delete">Hapus</a>
+                    </td>
+                        </tr>`;
+              }
+
+              dom.innerHTML = row;
+            }
+          </script>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
