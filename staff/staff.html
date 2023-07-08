@@ -108,12 +108,13 @@
                     </td>
                     <td>${i.tahun_bergabung}</td>
                     <td>
-                      <a href="edit_staff.php?id=${
-                        i.id
-                      }" class="button">Edit Staff</a>
-                      <a onclick="return confirm('Apakah anda yakin akan menghapus data staff ini?')" href="hapus_staff.php?id=${
-                        i.id
-                      }" class="button delete">Hapus Staff</a>
+                      <a href="edit_staff.php?id=${i.id}" 
+                      class="button">Edit Staff</a>
+                      <a onclick="return confirm('Apakah anda yakin akan menghapus data staff ini?')" 
+                      href="hapus_staff.php?id=${i.id}" 
+                        class="button delete">Hapus Staff</a>
+                      <a href="../cetak.php?data=staff&id=${i.id}" 
+                            class="button" target="_blank">Cetak Staff</a>
                     </td>
                   </tr>`;
               }

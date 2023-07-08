@@ -1,5 +1,5 @@
 <?php
-require_once('../Database.php');
+require_once('Database.php');
 
 // Membuat class Staff yang merupakan turunan dari class Database.
 class Staff extends Database

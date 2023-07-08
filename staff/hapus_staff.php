@@ -1,5 +1,5 @@
 <?php
-require_once('Staff.php');
+require_once('./Staff.php');
 
 // Deklarasi objek baru dari class Staff
 $staff = new Staff();

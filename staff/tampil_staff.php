@@ -1,6 +1,6 @@
 <?php
 header('Access-Control-Allow-Origin: *');
-require_once('Staff.php');
+require_once('../Staff.php');
 
 // Deklarasi objek baru dari class Barang
 $staff = new Staff();
