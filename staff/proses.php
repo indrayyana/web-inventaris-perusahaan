@@ -1,5 +1,5 @@
 <?php
-require_once('./Staff.php');
+require_once('../Staff.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Deklarasi objek baru dari class Staff
@@ -21,8 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             window.location.href = "staff.html";
         </script>';
     } else {
-        echo '
-        <script>
+        echo '<script>
             alert("Terjadi kesalahan saat menyimpan data.");
             window.location.href = "input_staff.php";
         </script>';

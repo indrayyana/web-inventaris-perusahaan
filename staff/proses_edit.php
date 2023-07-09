@@ -1,5 +1,5 @@
 <?php
-require_once('./Staff.php');
+require_once('../Staff.php');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Deklarasi objek baru dari class Staff
