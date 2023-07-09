@@ -10,12 +10,10 @@ $barang->id = $_GET['id'];
 $tampil_data = $barang->tampil_satu_barang();
 
 if (!$tampil_data) {
-    ?>
-    <script type="text/javascript">
+    echo '<script>
         alert("Terjadi kesalahan saat mengedit data.");
         window.location.href = "index.html";
-    </script>
-    <?php
+    </script>';
 }
 
 ?>

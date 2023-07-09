@@ -18,18 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Cek apakah kueri INSERT berhasil atau tidak
     if ($result) {
-        ?>
-        <script type="text/javascript">
+        echo '<script>
             alert("Simpan Data Berhasil");
             window.location.href = "index.html";
-        </script>
-        <?php
+        </script>';
     } else {
-        ?>
-        <script type="text/javascript">
+        echo '<script>
             alert("Terjadi kesalahan saat menyimpan data.");
             window.location.href = "input_inventaris.php";
-        </script>
-        <?php
+        </script>';
     }
 } ?>

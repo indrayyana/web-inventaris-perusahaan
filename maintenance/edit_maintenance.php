@@ -10,12 +10,10 @@ $maintenance->id = $_GET['id'];
 $tampil_data = $maintenance->tampil_satu_maintenance();
 
 if (!$tampil_data) {
-    ?>
-    <script type="text/javascript">
+    echo '<script>
         alert("Terjadi kesalahan saat mengedit data.");
         window.location.href = "../index.html";
-    </script>
-    <?php
+    </script>';
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -27,19 +25,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $maintenance->ubah_maintenance();
 
     if ($result) {
-        ?>
-        <script type="text/javascript">
+        echo '<script>
             alert("Simpan Data Berhasil");
             window.location.href = "maintenance.html";
-        </script>
-        <?php
+        </script>';
     } else {
-        ?>
-        <script type="text/javascript">
+        echo '<script>
             alert("Terjadi kesalahan saat mengedit data.");
-            window.location.href = "edit_maintenance.php?id=<?php echo $maintenance->id; ?>";
-        </script>
-        <?php
+            window.location.href = "edit_maintenance.php?id=' . $maintenance->id . '";
+        </script>';
     }
 }
 ?>

@@ -15,19 +15,15 @@ $result_delete_maintenance = $maintenance->hapus_maintenance();
 $result_delete_inventaris = $barang->hapus_barang();
 
 if ($result_delete_maintenance && $result_delete_inventaris) {
-    ?>
-    <script type="text/javascript">
+    echo '<script>
         alert("Data Berhasil Dihapus");
         window.location.href = "index.html";
-    </script>
-    <?php
+    </script>';
 } else {
-    ?>
-    <script type="text/javascript">
+    echo '<script>
         alert("Terjadi kesalahan saat menghapus data.");
         window.location.href = "index.html";
-    </script>
-    <?php
+    </script>';
 }
 
 ?>

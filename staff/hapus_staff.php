@@ -11,19 +11,15 @@ $staff->id = $_GET['id'];
 $result_delete_staff = $staff->hapus_staff();
 
 if ($result_delete_staff) {
-    ?>
-    <script type="text/javascript">
+    echo '<script>
         alert("Data Berhasil Dihapus");
         window.location.href = "staff.html";
-    </script>
-    <?php
+    </script>';
 } else {
-    ?>
-    <script type="text/javascript">
+    echo '<script>
         alert("Terjadi kesalahan saat menghapus data.");
         window.location.href = "staff.html";
-    </script>
-    <?php
+    </script>';
 }
 
 ?>

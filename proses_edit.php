@@ -16,19 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $barang->ubah_barang();
 
     if ($result) {
-        ?>
-        <script type="text/javascript">
+        echo '<script>
             alert("Simpan Data Berhasil");
             window.location.href = "index.html";
-        </script>
-        <?php
+        </script>';
     } else {
-        ?>
-        <script type="text/javascript">
+        echo '<script>
             alert("Terjadi kesalahan saat menyimpan data.");
-            window.location.href = "edit_barang.php?id=<?php echo $id_barang; ?>";
-        </script>
-        <?php
+            window.location.href = "edit_barang.php?id=' . $id_barang . '";
+        </script>';
     }
 }
 ?>

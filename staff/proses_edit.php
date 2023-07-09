@@ -16,19 +16,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $staff->ubah_staff();
 
     if ($result) {
-        ?>
-        <script type="text/javascript">
+        echo '<script>
             alert("Simpan Data Berhasil");
             window.location.href = "staff.html";
-        </script>
-        <?php
+        </script>';
     } else {
-        ?>
-        <script type="text/javascript">
+        echo '<script>
             alert("Terjadi kesalahan saat menyimpan data.");
-            window.location.href = "edit_staff.php?id=<?php echo $staff->id; ?>";
-        </script>
-        <?php
+            window.location.href = "edit_staff.php?id=' . $staff->id . '";
+        </script>';
     }
 }
 ?>

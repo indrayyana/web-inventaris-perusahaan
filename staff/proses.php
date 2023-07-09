@@ -16,19 +16,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Cek apakah proses tambah staff berhasil atau tidak
     if ($result) {
-        ?>
-        <script type="text/javascript">
+        echo '<script>
             alert("Simpan Data Berhasil");
             window.location.href = "staff.html";
-        </script>
-        <?php
+        </script>';
     } else {
-        ?>
-        <script type="text/javascript">
+        echo '
+        <script>
             alert("Terjadi kesalahan saat menyimpan data.");
             window.location.href = "input_staff.php";
-        </script>
-        <?php
+        </script>';
     }
 }
 ?>

@@ -14,12 +14,10 @@ if (isset($_GET['data']) && isset($_GET['id'])) {
         $tampil_data = $barang->tampil_satu_barang();
 
         if (!$tampil_data) {
-            ?>
-            <script type="text/javascript">
+            echo '<script>
                 alert("Terjadi kesalahan saat mencetak data.");
                 window.location.href = "index.html";
-            </script>
-            <?php
+            </script>';
         }
 
         $html = '<!DOCTYPE html>
@@ -89,7 +87,8 @@ if (isset($_GET['data']) && isset($_GET['id'])) {
         $tampil_data = $maintenance->tampil_satu_maintenance();
 
         // Fungsi manipulasi tanggal
-        function formatDate($tanggal) {
+        function formatDate($tanggal)
+        {
             // Set locale ke bahasa Indonesia
             $locale = 'id_ID';
 
@@ -105,12 +104,10 @@ if (isset($_GET['data']) && isset($_GET['id'])) {
 
 
         if (!$tampil_data) {
-            ?>
-                <script type="text/javascript">
+            echo '<script>
                     alert("Terjadi kesalahan saat mencetak data.");
                     window.location.href = "./staff/staff.html";
-                </script>
-                <?php
+                </script>';
         }
 
         $html = '<!DOCTYPE html>
@@ -168,12 +165,10 @@ if (isset($_GET['data']) && isset($_GET['id'])) {
         $tampil_data = $staff->tampil_satu_staff();
 
         if (!$tampil_data) {
-            ?>
-                    <script type="text/javascript">
+            echo '<script>
                         alert("Terjadi kesalahan saat mencetak data.");
                         window.location.href = "./staff/staff.html";
-                    </script>
-                    <?php
+                    </script>';
         }
 
         $html = '<!DOCTYPE html>
@@ -233,11 +228,9 @@ if (isset($_GET['data']) && isset($_GET['id'])) {
     $mpdf->WriteHTML($html);
     $mpdf->Output('Data ' . $tampil_data['nama'] . '.pdf', 'I');
 } else {
-    ?>
-    <script type="text/javascript">
+    echo '<script>
         alert("Terjadi kesalahan saat mencetak data.");
         window.location.href = "index.html";
-    </script>
-<?php
+    </script>';
 }
 ?>
