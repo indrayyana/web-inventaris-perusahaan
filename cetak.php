@@ -88,6 +88,22 @@ if (isset($_GET['data']) && isset($_GET['id'])) {
         $maintenance->id = $_GET['id'];
         $tampil_data = $maintenance->tampil_satu_maintenance();
 
+        // Fungsi manipulasi tanggal
+        function formatDate($tanggal) {
+            // Set locale ke bahasa Indonesia
+            $locale = 'id_ID';
+
+            // Konversi tanggal ke objek DateTime
+            $date = new DateTime($tanggal);
+
+            // Format tanggal dengan menggunakan IntlDateFormatter
+            $formatter = new IntlDateFormatter($locale, IntlDateFormatter::FULL, IntlDateFormatter::NONE);
+            $formatter->setPattern('EEEE, d MMMM y');
+
+            return $formatter->format($date);
+        }
+
+
         if (!$tampil_data) {
             ?>
                 <script type="text/javascript">
@@ -132,7 +148,7 @@ if (isset($_GET['data']) && isset($_GET['id'])) {
             </tr>
             <tr>
                 <td>Tanggal Maintenance</td>
-                <td>: ' . $tampil_data['tanggal_maintenance'] . '</td>
+                <td>: ' . formatDate($tampil_data['tanggal_maintenance']) . ' </td>
             </tr>
             <tr>
                 <td>Vendor Maintenance</td>
