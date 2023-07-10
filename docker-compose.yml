@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  php-env:
+    build: .
+    image: web
+    container_name: inventaris-barang
+    volumes:
+      - ./src:/var/www/html
+    ports:
+      - 8000:80
+    command: >
+      sh -c "composer require mpdf/mpdf && chown -R www-data:www-data /var/www/html/vendor/mpdf/mpdf/tmp && apache2-foreground"
+
+  mysql-db:
+    image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    restart: always
+    container_name: phpmyadmin
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+
