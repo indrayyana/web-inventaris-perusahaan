@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventaris Barang</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>Maintenance Inventaris</h1>
+
+      <ul id="navbar">
+        <li><a href="../index.html" class="menu">Home</a></li>
+        <li>
+          <a href="maintenance.html" class="menu active"
+            >Maintenance Inventaris</a
+          >
+        </li>
+        <li><a href="../staff/staff.html" class="menu">Staff</a></li>
+      </ul>
+    </header>
+
+    <div class="container">
+      <form action="select_join.php" method="get" id="search">
+        <input
+          type="text"
+          name="keyword"
+          id="searchInput"
+          placeholder="Ketik sesuatu disini... (kecuali hari)"
+          autocomplete="off"
+        />
+        <button class="searchbtn">Cari</button>
+      </form>
+
+      <table class="table" width="100%">
+        <thead>
+          <tr>
+            <td>No</td>
+            <td>Nama Barang</td>
+            <td>Tanggal Maintenance</td>
+            <td>Vendor Maintenance</td>
+            <td>Staff PIC</td>
+            <td>Pengaturan</td>
+          </tr>
+        </thead>
+
+        <tbody id="data">
+          <script>
+            // Untuk menu yg sedang active
+            const btnContainer = document.getElementById("navbar");
+            const btns = btnContainer.getElementsByClassName("menu");
+
+            for (let i = 0; i < btns.length; i++) {
+              btns[i].addEventListener("click", function () {
+                let current = document.getElementsByClassName("active");
+                current[0].className = current[0].className.replace(" active");
+                this.className += " active";
+              });
+            }
+
+            const url = "http://localhost:8000/maintenance/select_join.php";
+
+            // Function untuk menampilkan semua data maintenance saat halaman pertama kali dimuat
+            function showAllData() {
+              fetch(url)
+                .then((response) => response.json())
+                .then((data) => {
+                  tabelData(data);
+                });
+            }
+
+            showAllData();
+
+            function formatDate(tanggal) {
+              if (tanggal === null) {
+                return "-";
+              }
+
+              const options = {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              };
+              return new Date(tanggal).toLocaleDateString("id-ID", options);
+            }
+
+            // Menambahkan event listener untuk submit pada id "search".
+            document
+              .getElementById("search")
+              .addEventListener("submit", searchSubmit); // Memanggil fungsi searchSubmit saat submit terjadi
+
+            function searchSubmit(event) {
+              event.preventDefault(); // Mencegah aksi memuat ulang halaman & default pengiriman form (pindah page)
+
+              // Mengambil nilai yang diinputkan pada elemen dengan ID "searchInput"
+              const keyword = document.getElementById("searchInput").value;
+
+              fetch(url + `?keyword=${encodeURIComponent(keyword)}`)
+                .then((response) => response.json())
+                .then((data) => {
+                  tabelData(data);
+                });
+            }
+
+            // Function untuk menampilkan tabel data maintenance barang
+            function tabelData(data) {
+              let dom = document.getElementById("data");
+              let row = "";
+              let no = 1;
+
+              for (let i of data) {
+                // Mengecek nilai dengan ternary operator
+                let edit =
+                  i.tanggal_maintenance === null &&
+                  i.vendor_maintenance === null &&
+                  i.staff_pic === null
+                    ? `input_maintenance.php?id=${i.id}`
+                    : `edit_maintenance.php?id=${i.id}`;
+
+                row += `<tr>
+                            <td>${no++}</td>
+                            <td>${i.nama}</td>
+                            <td>${formatDate(i.tanggal_maintenance)}</td>
+                            <td>${
+                              i.vendor_maintenance === null
+                                ? "-"
+                                : i.vendor_maintenance
+                            }</td>
+                            <td>${i.staff_pic === null ? "-" : i.staff_pic}</td>
+                            <td>
+                            <a href="${edit}" class="button">Edit</a>
+                            <a href="../cetak.php?data=maintenance&id=${i.id}" 
+                            class="button" target="_blank">Cetak</a>
+                            </td>
+                        </tr>`;
+              }
+
+              dom.innerHTML = row;
+            }
+          </script>
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
