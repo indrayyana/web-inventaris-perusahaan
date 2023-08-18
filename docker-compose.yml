@@ -10,7 +10,7 @@ services:
     ports:
       - 8000:80
     command: >
-      sh -c "composer require mpdf/mpdf && chown -R www-data:www-data /var/www/html/vendor/mpdf/mpdf/tmp && apache2-foreground"
+      sh -c "composer install --no-scripts --no-autoloader && composer dump-autoload --optimize && apache2-foreground"
 
   mysql-db:
     image: mysql:latest
