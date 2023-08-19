@@ -14,11 +14,11 @@ services:
 
   mysql-db:
     image: mysql:latest
+    command: --default-authentication-plugin=mysql_native_password
     restart: always
     container_name: mysql
     environment:
       MYSQL_DATABASE: 'inventaris-barang'
-      MYSQL_ROOT_USER: 'root'
       MYSQL_ROOT_PASSWORD: 'root'
     volumes:
       - ./inventaris.sql:/docker-entrypoint-initdb.d/01-init.sql
